@@ -29,17 +29,17 @@ const SuperAdminTabs = () => {
                     borderTopWidth: 1,
                     borderTopColor: '#F1F5F9', // slate-100
                     backgroundColor: '#FFFFFF',
-                    elevation: 0,
-                    shadowOpacity: 0,
+                    elevation: 10, // Shadow for Android
+                    shadowOpacity: 5,
                     height: 70 + insets.bottom,
-                    paddingBottom: Math.max(12, insets.bottom + 8),
+                    paddingBottom: Math.max(10, insets.bottom + 8),
                     paddingTop: 12,
                 },
                 tabBarActiveTintColor: '#6366F1', // Indigo-500
                 tabBarInactiveTintColor: '#94A3B8', // slate-400
                 tabBarLabelStyle: {
                     fontSize: 10,
-                    fontWeight: '900',
+                    fontWeight: '600',
                     textTransform: 'uppercase',
                     letterSpacing: 1,
                     marginTop: 4
