@@ -116,25 +116,24 @@ const LoginScreen = ({ navigation }) => {
                                 title="Register"
                                 onPress={() => navigation.navigate('Register')}
                                 variant="outline"
-                                loading={isActionLoading}
                             />
                         </View>
 
                         <View className="flex-row flex-wrap justify-between">
                             <TouchableOpacity
-                                onPress={() => handleDevShortcut('super@nova.com', '123')}
+                                onPress={() => handleDevShortcut('superadmin@edu.com', '123')}
                                 className="w-[48%] bg-indigo-50 p-4 rounded-2xl mb-3 border border-indigo-100 items-center shadow-sm shadow-indigo-100"
                             >
                                 <Text className="text-indigo-600 font-black text-[10px] uppercase tracking-widest">Super Admin</Text>
-                                <Text className="text-indigo-300 text-[8px] font-bold mt-1">super@nova.com</Text>
+                                <Text className="text-indigo-300 text-[8px] font-bold mt-1">superadmin@edu.com</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
-                                onPress={() => handleDevShortcut('school@admin.com', '123')}
+                                onPress={() => handleDevShortcut('admin@progressive.com', '123')}
                                 className="w-[48%] bg-slate-50 p-4 rounded-2xl mb-3 border border-slate-100 items-center shadow-sm shadow-slate-100"
                             >
                                 <Text className="text-slate-700 font-black text-[10px] uppercase tracking-widest">School Admin</Text>
-                                <Text className="text-slate-400 text-[8px] font-bold mt-1">school@admin.com</Text>
+                                <Text className="text-slate-400 text-[8px] font-bold mt-1">admin@progressive.com</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
