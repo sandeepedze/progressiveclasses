@@ -14,7 +14,7 @@ async function testModel() {
             password: 'password',
             role_id: 2, // School Admin
             edu_type_id: 1,
-            profilePic: 'test.jpg', // Trying to set it
+            profile_pic: 'test.jpg', // Trying to set it
             status: 'active'
         }, { logging: console.log });
 

@@ -105,7 +105,7 @@ const login = async (req, res) => {
                 role: roleCode, // keeping legacy support if needed
                 is_setup_complete: isSetupComplete,
                 is_setup_complete: isSetupComplete,
-                profile_pic: user.profilePic
+                profile_pic: user.profile_pic
             }
         });
     } catch (err) {

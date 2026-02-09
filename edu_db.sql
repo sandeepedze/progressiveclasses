@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2026 at 11:16 PM
+-- Generation Time: Feb 09, 2026 at 10:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,7 +30,6 @@ SET time_zone = "+00:00";
 CREATE TABLE `edu_type` (
   `id` int(11) NOT NULL,
   `type_name` varchar(50) NOT NULL,
-  `is_active` int(1) NOT NULL DEFAULT 0 COMMENT '1= active, 0=inactive',
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -38,11 +37,11 @@ CREATE TABLE `edu_type` (
 -- Dumping data for table `edu_type`
 --
 
-INSERT INTO `edu_type` (`id`, `type_name`, `is_active`, `created_at`) VALUES
-(1, 'Schools', 0, '2026-02-08 20:50:57'),
-(2, 'Institutes', 0, '2026-02-08 20:50:57'),
-(3, 'Coaching', 1, '2026-02-08 20:50:57'),
-(4, 'Tuition', 0, '2026-02-08 20:50:57');
+INSERT INTO `edu_type` (`id`, `type_name`, `created_at`) VALUES
+(1, 'Schools', '2026-02-09 14:30:17'),
+(2, 'Institutes', '2026-02-09 14:30:17'),
+(3, 'Coaching', '2026-02-09 14:30:17'),
+(4, 'Tuition', '2026-02-09 14:30:17');
 
 -- --------------------------------------------------------
 
@@ -51,7 +50,7 @@ INSERT INTO `edu_type` (`id`, `type_name`, `is_active`, `created_at`) VALUES
 --
 
 CREATE TABLE `organization_details` (
-  `id` char(36) NOT NULL,
+  `id` int(11) NOT NULL,
   `organization_name` varchar(255) DEFAULT NULL,
   `contact` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
@@ -60,7 +59,7 @@ CREATE TABLE `organization_details` (
   `state` varchar(100) DEFAULT NULL,
   `country` varchar(100) DEFAULT NULL,
   `zip_code` varchar(20) DEFAULT NULL,
-  `user_id` char(36) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `edu_type_id` int(11) DEFAULT NULL,
   `logo` varchar(255) DEFAULT NULL,
   `subscription_id` int(11) DEFAULT 5,
@@ -78,7 +77,6 @@ CREATE TABLE `organization_details` (
 CREATE TABLE `password_resets` (
   `id` int(11) NOT NULL,
   `contact` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
   `otp` varchar(10) NOT NULL,
   `expires_at` datetime NOT NULL,
   `created_at` datetime DEFAULT current_timestamp()
@@ -103,11 +101,11 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `role_name`, `role_code`, `is_system_role`, `created_at`) VALUES
-(1, 'Super Admin', 'SUPER_ADMIN', 1, '2026-02-08 20:50:57'),
-(2, 'School Admin', 'SCHOOL_ADMIN', 1, '2026-02-08 20:50:57'),
-(3, 'Teacher', 'TEACHER', 1, '2026-02-08 20:50:57'),
-(4, 'Admission Incharge', 'ADMISSION', 1, '2026-02-08 20:50:57'),
-(5, 'Operator', 'OPERATOR', 1, '2026-02-08 20:50:57');
+(1, 'Super Admin', 'SUPER_ADMIN', 1, '2026-02-09 14:30:17'),
+(2, 'School Admin', 'SCHOOL_ADMIN', 1, '2026-02-09 14:30:17'),
+(3, 'Teacher', 'TEACHER', 1, '2026-02-09 14:30:17'),
+(4, 'Admission Incharge', 'ADMISSION', 1, '2026-02-09 14:30:17'),
+(5, 'Operator', 'OPERATOR', 1, '2026-02-09 14:30:17');
 
 -- --------------------------------------------------------
 
@@ -116,14 +114,13 @@ INSERT INTO `roles` (`id`, `role_name`, `role_code`, `is_system_role`, `created_
 --
 
 CREATE TABLE `users` (
-  `id` char(36) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `role_id` int(11) NOT NULL,
-  `profilePic` varchar(255) DEFAULT NULL,
-  `edu_type_id` int(11) NOT NULL,
+  `profile_pic` varchar(255) DEFAULT NULL,
   `status` enum('active','inactive','suspended','blocked') DEFAULT 'active',
   `last_login` datetime DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -134,8 +131,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `role_id`, `profilePic`, `edu_type_id`, `status`, `last_login`, `created_at`, `updated_at`) VALUES
-('ce0f6159-cf01-4540-ae11-0bf10aa987c7', 'Super Admin', 'superadmin@edu.com', '$2b$10$Lmnp61kQ5j79RwWBa709Te9KF8YrjwHaNqF9F98u84UZtR8YMYf86', NULL, 1, NULL, 0, 'active', NULL, '2026-02-08 15:20:57', '2026-02-08 20:50:57');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `role_id`, `profile_pic`, `status`, `last_login`, `created_at`, `updated_at`) VALUES
+(1, 'Super Admin', 'superadmin@edu.com', '$2b$10$HpjDFCXeOcnxtn8MyfBDWu1ac0/jsRWc5Zdd81LW39zA9PgFdYeFq', NULL, 1, NULL, 'active', NULL, '2026-02-09 09:00:17', '2026-02-09 14:30:17');
 
 --
 -- Indexes for dumped tables
@@ -187,6 +184,12 @@ ALTER TABLE `edu_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `organization_details`
+--
+ALTER TABLE `organization_details`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -196,7 +199,13 @@ ALTER TABLE `password_resets`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
