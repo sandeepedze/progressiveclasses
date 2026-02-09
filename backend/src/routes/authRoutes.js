@@ -7,7 +7,7 @@ const { protect } = require('../middlewares/authMiddleware');
 router.post('/register', register);
 router.post('/login', login);
 router.get('/me', protect, getMe);
-router.get('/logout', logout);
+router.post('/logout', logout);
 
 // Password Reset Routes
 router.post('/forgot-password', forgotPassword);

@@ -43,7 +43,7 @@ const SecurityScreen = ({ navigation }) => {
     return (
         <ScreenWrapper loading={isUpdating}>
             <SafeAreaView className="flex-1 bg-white" edges={['top']}>
-                <AppHeader title="Security Protocol" />
+                <AppHeader title="Update Password" />
 
                 <KeyboardAvoidingView
                     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -60,15 +60,15 @@ const SecurityScreen = ({ navigation }) => {
                         }}
                     >
                         <View className="items-center mb-10">
-                            <Text className="text-xl font-bold text-slate-800 text-center uppercase tracking-tighter">Credential Management</Text>
+                            <Text className="text-xl font-bold text-slate-800 text-center uppercase tracking-tighter">Update Password</Text>
                             <Text className="text-slate-400 text-center mt-2 font-black uppercase tracking-[2px] text-[10px] px-6">
-                                Update your institutional access keys for enhanced workspace security.
+                                Update your password to keep your account secure.
                             </Text>
                         </View>
 
                         <AppCard className="mb-10">
                             <AppInput
-                                label="Current Identity Key"
+                                label="Current Password"
                                 placeholder="••••••••"
                                 secureTextEntry
                                 passwordToggle
@@ -76,7 +76,7 @@ const SecurityScreen = ({ navigation }) => {
                                 onChangeText={(t) => setPasswords({ ...passwords, currentPassword: t })}
                             />
                             <AppInput
-                                label="New Security Key"
+                                label="New Password"
                                 placeholder="••••••••"
                                 secureTextEntry
                                 passwordToggle
@@ -84,7 +84,7 @@ const SecurityScreen = ({ navigation }) => {
                                 onChangeText={(t) => setPasswords({ ...passwords, newPassword: t })}
                             />
                             <AppInput
-                                label="Confirm Security Key"
+                                label="Confirm Password"
                                 placeholder="••••••••"
                                 secureTextEntry
                                 passwordToggle
@@ -95,7 +95,7 @@ const SecurityScreen = ({ navigation }) => {
 
                         <View className="mb-10">
                             <AppButton
-                                title="Update Access Matrix"
+                                title="Update Password"
                                 onPress={handleUpdatePassword}
                                 loading={isUpdating}
                             />

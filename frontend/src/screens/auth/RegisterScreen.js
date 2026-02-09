@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import * as SecureStore from 'expo-secure-store';
 import { View, Text, Image, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AppInput from '../../components/ui/AppInput';
@@ -46,11 +47,15 @@ const RegisterScreen = ({ navigation }) => {
 
             // Check if response contains token and user directly (Optimization)
             if (response?.token && response?.user) {
-                 // Manually set state to avoid network call
-                 dispatch({
-                     type: 'auth/loginUser/fulfilled',
-                     payload: { user: response.user, token: response.token }
-                 });
+                // MANUALLY SAVE TO SECURE STORE so apiClient interceptor can pick it up
+                await SecureStore.setItemAsync('userToken', response.token);
+                await SecureStore.setItemAsync('userData', JSON.stringify(response.user));
+
+                // Manually set state to avoid network call
+                dispatch({
+                    type: 'auth/loginUser/fulfilled',
+                    payload: { user: response.user, token: response.token }
+                });
             } else {
                 // Fallback to login call
                 await dispatch(loginUser({ email: formData.email, password: formData.password })).unwrap();

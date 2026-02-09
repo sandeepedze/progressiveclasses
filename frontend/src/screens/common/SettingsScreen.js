@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import {
     User, Lock, Bell, HelpCircle,
-    FileText, LogOut, ChevronRight
+    FileText, ChevronRight
 } from 'lucide-react-native';
 
 import AppHeader from '../../components/layout/AppHeader';
@@ -13,15 +13,23 @@ import { logoutUser } from '../../features/auth/authSlice';
 import * as SecureStore from 'expo-secure-store';
 import { useToast } from '../../context/ToastContext';
 import { API_CONFIG } from '../../constants/apiRoutes';
+import LogoutButton from '../../components/common/LogoutButton';
 
 const SettingsRow = ({ icon, label, onPress, subLabel }) => (
     <TouchableOpacity
         onPress={onPress}
         activeOpacity={0.7}
-        className="flex-row items-center justify-between bg-white px-5 py-4 rounded-[20px] border border-slate-50 mb-3"
+        className="flex-row items-center justify-between bg-white px-5 py-4 rounded-md shadow-md shadow-indigo-100 mb-3"
+        style={{
+            shadowColor: '#4f46e5', // indigo shadow
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 0.15,
+            shadowRadius: 6,
+            elevation: 5, // Android shadow
+        }}
     >
         <View className="flex-row items-center flex-1">
-            <View className="bg-indigo-50 p-2.5 rounded-xl mr-4">
+            <View className="bg-indigo-50 p-2.5 rounded-md mr-4">
                 {icon}
             </View>
             <View>
@@ -65,12 +73,7 @@ const SettingsScreen = () => {
 
     return (
         <SafeAreaView className="flex-1 bg-white" edges={['top']}>
-            <AppHeader useLogo={true} showBack={false} />
-
-            <View className="px-5 py-6 bg-white border-b border-gray-50">
-                <Text className="text-xl font-bold text-slate-800">Account Preferences</Text>
-            </View>
-
+            <AppHeader title="Account Settings" showBack={false} showNotification={false} />
             <ScrollView
                 className="flex-1 px-5"
                 contentContainerStyle={{
@@ -83,7 +86,7 @@ const SettingsScreen = () => {
                 <TouchableOpacity
                     activeOpacity={0.9}
                     onPress={() => navigation.navigate('Profile')}
-                    className="flex-row items-center bg-[#6366F1] p-5 rounded-[24px] mb-8 shadow-lg shadow-indigo-100"
+                    className="flex-row items-center bg-indigo-800 p-4 rounded-md mb-8 shadow-lg shadow-indigo-100"
                 >
                     <View className="h-14 w-14 rounded-2xl bg-white/20 items-center justify-center border-2 border-white/30 overflow-hidden mr-4">
                         {profileImageUrl ? (
@@ -109,14 +112,14 @@ const SettingsScreen = () => {
                 <SettingsRow
                     icon={<User size={18} color="#6366F1" />}
                     label="Personal Information"
-                    subLabel="Profile & Contacts"
+                    subLabel="Update Profile"
                     onPress={() => navigation.navigate('Profile')}
                 />
 
                 <SettingsRow
                     icon={<Lock size={18} color="#6366F1" />}
                     label="Security & Access"
-                    subLabel="Update Secret Key"
+                    subLabel="Update Password"
                     onPress={() => navigation.navigate('Security')}
                 />
 
@@ -126,11 +129,11 @@ const SettingsScreen = () => {
                     onPress={() => { }}
                 />
 
-                <Text className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-6 mb-4 ml-1">Institutional Support</Text>
+                <Text className="text-[10px] font-black text-slate-400 uppercase tracking-widest mt-6 mb-4 ml-1">Support</Text>
 
                 <SettingsRow
                     icon={<HelpCircle size={18} color="#6366F1" />}
-                    label="Nova Support Hub"
+                    label="Nova Support"
                     onPress={() => { }}
                 />
 
@@ -140,16 +143,9 @@ const SettingsScreen = () => {
                     onPress={() => { }}
                 />
 
-                <TouchableOpacity
-                    onPress={handleLogout}
-                    activeOpacity={0.7}
-                    className="flex-row items-center justify-center bg-red-50 py-4 rounded-[20px] border border-red-100 mt-8"
-                >
-                    <LogOut size={18} color="#EF4444" className="mr-3" />
-                    <Text className="text-red-500 font-black text-[10px] uppercase tracking-widest">Terminate Session</Text>
-                </TouchableOpacity>
+                <LogoutButton onLogout={handleLogout} />
 
-                <Text className="text-center text-slate-300 text-[8px] font-black mt-10 uppercase tracking-[4px]">
+                <Text className="text-center text-slate-300 text-[8px] font-black mt-10 uppercase tracking-[2px]">
                     Nova Engine v1.0.110
                 </Text>
 
