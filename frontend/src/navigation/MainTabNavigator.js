@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Home, Grid, MessageCircle, User } from 'lucide-react-native';
 import DashboardScreen from '../screens/DashboardScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import ProfileScreen from '../screens/common/ProfileScreen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Placeholder Screens

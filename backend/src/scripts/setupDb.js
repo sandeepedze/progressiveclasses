@@ -85,7 +85,7 @@ const setupDatabase = async () => {
         // 5. Create 'users' table
         const createUsersTable = `
             CREATE TABLE IF NOT EXISTS users (
-                id CHAR(36) PRIMARY KEY,
+                id INT AUTO_INCREMENT PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
                 email VARCHAR(255) NOT NULL UNIQUE,
                 password VARCHAR(255) NOT NULL,
@@ -113,11 +113,10 @@ const setupDatabase = async () => {
             if (roles.length > 0) {
                 const roleId = roles[0].id;
                 const hashedPassword = await bcrypt.hash('123', 10); // Default password
-                const userId = crypto.randomUUID();
-
+                
                 await connection.query(
-                    `INSERT INTO users (id, name, email, password, role_id, status) VALUES (?, ?, ?, ?, ?, 'active')`,
-                    [userId, 'Super Admin', SUPER_ADMIN_EMAIL, hashedPassword, roleId]
+                    `INSERT INTO users (name, email, password, role_id, status) VALUES (?, ?, ?, ?, 'active')`,
+                    ['Super Admin', SUPER_ADMIN_EMAIL, hashedPassword, roleId]
                 );
                 console.log(`Super Admin created successfully. Email: ${SUPER_ADMIN_EMAIL}`);
             } else {
@@ -127,30 +126,10 @@ const setupDatabase = async () => {
             console.log(`Super Admin user already exists: ${SUPER_ADMIN_EMAIL}`);
         }
 
-        // 7. Create 'institutes' table
-        const createInstitutesTable = `
-            CREATE TABLE IF NOT EXISTS institutes (
-                id CHAR(36) PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
-                address TEXT,
-                contact VARCHAR(255),
-                logo VARCHAR(255),
-                admin_id CHAR(36) NOT NULL,
-                edu_type_id INT,
-                status ENUM('active', 'inactive') DEFAULT 'active',
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                FOREIGN KEY (admin_id) REFERENCES users(id) ON DELETE CASCADE,
-                FOREIGN KEY (edu_type_id) REFERENCES edu_type(id) ON DELETE SET NULL
-            );
-        `;
-        await connection.query(createInstitutesTable);
-        console.log("Table 'institutes' checked/created.");
-
-        // 8. Create 'organization_details' table
+        // 7. Create 'organization_details' table
         const createOrgDetailsTable = `
             CREATE TABLE IF NOT EXISTS organization_details (
-                id CHAR(36) PRIMARY KEY,
+                id INT AUTO_INCREMENT PRIMARY KEY,
                 organization_name VARCHAR(255),
                 contact VARCHAR(255),
                 email VARCHAR(255),
@@ -159,7 +138,7 @@ const setupDatabase = async () => {
                 state VARCHAR(100),
                 country VARCHAR(100),
                 zip_code VARCHAR(20),
-                user_id CHAR(36) NOT NULL,
+                user_id INT NOT NULL,
                 edu_type_id INT,
                 logo VARCHAR(255),
                 subscription_id INT DEFAULT 5,
@@ -173,7 +152,7 @@ const setupDatabase = async () => {
         await connection.query(createOrgDetailsTable);
         console.log("Table 'organization_details' checked/created.");
 
-        // 9. Create 'password_resets' table
+        // 8. Create 'password_resets' table
         const createPasswordResetTable = `
             CREATE TABLE IF NOT EXISTS password_resets (
                 id INT AUTO_INCREMENT PRIMARY KEY,

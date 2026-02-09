@@ -5,12 +5,13 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Camera, User as UserIcon } from 'lucide-react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as SecureStore from 'expo-secure-store';
-import { restoreToken, setProfileImage } from '../../features/auth/authSlice';
+import { restoreToken, setProfileImage, logoutUser } from '../../features/auth/authSlice';
 import { userService } from '../../services';
 import { useToast } from '../../context/ToastContext';
 import AppHeader from '../../components/layout/AppHeader';
 import AppInput from '../../components/ui/AppInput';
 import AppButton from '../../components/ui/AppButton';
+import LogoutButton from '../../components/common/LogoutButton';
 import { API_CONFIG } from '../../constants/apiRoutes';
 
 const ProfileScreen = () => {
@@ -21,6 +22,15 @@ const ProfileScreen = () => {
 
     const [name, setName] = useState(user?.name || '');
     const [isUpdating, setIsUpdating] = useState(false);
+
+    const handleLogout = async () => {
+        try {
+            await dispatch(logoutUser()).unwrap();
+            showToast('Logged out successfully', 'success');
+        } catch (error) {
+            showToast('Logout failed', 'error');
+        }
+    };
 
     const getFullImageUrl = (path) => {
         if (!path) return null;
@@ -164,6 +174,10 @@ const ProfileScreen = () => {
                         <TouchableOpacity className="mt-6 p-2 items-center opacity-30">
                             <Text className="text-slate-500 text-[8px] font-black uppercase tracking-[3px]">Nova Persistence ID: {user?.id || 'N/A'}</Text>
                         </TouchableOpacity>
+
+                        <View className="mb-8">
+                            <LogoutButton onLogout={handleLogout} />
+                        </View>
                     </View>
 
                 </ScrollView>

@@ -3,9 +3,9 @@ const { sequelize } = require('../config/db');
 
 const User = sequelize.define('User', {
     id: {
-        type: DataTypes.STRING(36), // Explicitly matching CHAR(36)
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
     },
     name: {
         type: DataTypes.STRING,
@@ -29,11 +29,6 @@ const User = sequelize.define('User', {
     role_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-    },
-    edu_type_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 1 // Default to School if not provided
     },
     profilePic: {
         type: DataTypes.STRING,

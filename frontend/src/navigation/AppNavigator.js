@@ -15,6 +15,7 @@ import SetupOrganizationScreen from '../screens/auth/SetupOrganizationScreen';
 
 // Navigators
 import SuperAdminNavigator from './SuperAdminNavigator';
+import MainTabNavigator from './MainTabNavigator';
 
 // Redux & Theme
 import { restoreToken } from '../features/auth/authSlice';
@@ -57,8 +58,8 @@ export default function AppNavigator() {
                 ) : (user?.role_code === 'SCHOOL_ADMIN' || user?.role === 'school_admin') ? (
                     <Stack.Screen name="SchoolAdminRoot" component={SuperAdminNavigator} />
                 ) : (
-                    // Default / Other Users
-                    <Stack.Screen name="UserRoot" component={SuperAdminNavigator} />
+                    // Default / Other Users -> MainTabNavigator
+                    <Stack.Screen name="UserRoot" component={MainTabNavigator} />
                 )
             ) : (
                 // Auth Flow

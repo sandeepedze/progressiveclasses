@@ -3,9 +3,9 @@ const { sequelize } = require('../config/db');
 
 const OrganizationDetail = sequelize.define('OrganizationDetail', {
     id: {
-        type: DataTypes.STRING(36),
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
     },
     organization_name: {
         type: DataTypes.STRING,
@@ -32,7 +32,7 @@ const OrganizationDetail = sequelize.define('OrganizationDetail', {
         type: DataTypes.STRING,
     },
     user_id: {
-        type: DataTypes.STRING(36),
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     edu_type_id: {

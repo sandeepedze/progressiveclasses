@@ -29,7 +29,7 @@ const register = async (req, res) => {
             email,
             password: hashedPassword,
             role_id: schoolAdminRole.id,
-            edu_type_id: 1, // Defaulting to School (ID: 1) as confirmed in plan
+            // edu_type_id removed
             phone,
             status: 'active'
         });

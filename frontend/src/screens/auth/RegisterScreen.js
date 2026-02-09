@@ -44,13 +44,17 @@ const RegisterScreen = ({ navigation }) => {
 
             showToast('Registration successful! Logging you in...', 'success');
 
-            // Auto Login - Dispatch loginUser with credentials just used
-            // OR use the token from registration response if backend returns it and loginUser supports it.
-            // Backend returns { token, user } on register. Ideally we dispatch an action that sets this directly.
-            // But loginUser thunk calls authService.login.
-            // We can manually dispatch fulfilled action or just call loginUser.
-            // Easier: just call loginUser with credentials.
-            await dispatch(loginUser({ email: formData.email, password: formData.password })).unwrap();
+            // Check if response contains token and user directly (Optimization)
+            if (response?.token && response?.user) {
+                 // Manually set state to avoid network call
+                 dispatch({
+                     type: 'auth/loginUser/fulfilled',
+                     payload: { user: response.user, token: response.token }
+                 });
+            } else {
+                // Fallback to login call
+                await dispatch(loginUser({ email: formData.email, password: formData.password })).unwrap();
+            }
 
             // AppNavigator will handle redirection based on state
         } catch (error) {
@@ -90,8 +94,8 @@ const RegisterScreen = ({ navigation }) => {
                         />
 
                         <AppInput
-                            label="Institutional Email"
-                            placeholder="admin@school.com"
+                            label="Email"
+                            placeholder="admin@domain.com"
                             value={formData.email}
                             onChangeText={(t) => setFormData({ ...formData, email: t })}
                             icon={<Mail size={18} color="#6366F1" />}
@@ -127,7 +131,7 @@ const RegisterScreen = ({ navigation }) => {
                         />
                     </View>
 
-                    <View className="mt-8">
+                    <View className="mt-4">
                         <AppButton
                             title="Create Account"
                             onPress={handleRegister}

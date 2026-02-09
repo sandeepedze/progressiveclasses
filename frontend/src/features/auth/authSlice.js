@@ -123,6 +123,10 @@ const authSlice = createSlice({
             .addCase(logoutUser.rejected, (state, action) => {
                 state.isActionLoading = false;
                 state.error = action.payload;
+                // Force local logout even if API fails
+                state.user = null;
+                state.token = null;
+                state.isAuthenticated = false;
             });
     },
 });
