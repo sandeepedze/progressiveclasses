@@ -14,6 +14,25 @@ const LoginScreen = ({ navigation }) => {
     const { isActionLoading } = useSelector(state => state.auth);
     const [credentials, setCredentials] = useState({ email: '', password: '' });
 
+    const devShortcuts = [
+        {
+            label: 'Super Admin',
+            email: 'superadmin@edu.com',
+            password: '123',
+            className: 'bg-indigo-50 border-indigo-100 shadow-indigo-100',
+            textClass: 'text-indigo-600',
+            subTextClass: 'text-indigo-300'
+        },
+        {
+            label: 'Couching Admin',
+            email: 'admin@progressive.com',
+            password: '123',
+            className: 'bg-slate-50 border-slate-100 shadow-slate-100',
+            textClass: 'text-slate-700',
+            subTextClass: 'text-slate-400'
+        }
+    ];
+
     const handleLogin = async (creds = credentials) => {
         if (!creds.email || !creds.password) {
             showToast('Email and Password cannot be empty.', 'error');
@@ -120,21 +139,20 @@ const LoginScreen = ({ navigation }) => {
                         </View>
 
                         <View className="flex-row flex-wrap justify-between">
-                            <TouchableOpacity
-                                onPress={() => handleDevShortcut('superadmin@edu.com', '123')}
-                                className="w-[48%] bg-indigo-50 p-4 rounded-2xl mb-3 border border-indigo-100 items-center shadow-sm shadow-indigo-100"
-                            >
-                                <Text className="text-indigo-600 font-black text-[10px] uppercase tracking-widest">Super Admin</Text>
-                                <Text className="text-indigo-300 text-[8px] font-bold mt-1">superadmin@edu.com</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity
-                                onPress={() => handleDevShortcut('admin@progressive.com', '123')}
-                                className="w-[48%] bg-slate-50 p-4 rounded-2xl mb-3 border border-slate-100 items-center shadow-sm shadow-slate-100"
-                            >
-                                <Text className="text-slate-700 font-black text-[10px] uppercase tracking-widest">School Admin</Text>
-                                <Text className="text-slate-400 text-[8px] font-bold mt-1">admin@progressive.com</Text>
-                            </TouchableOpacity>
+                            {devShortcuts.map((shortcut, index) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    onPress={() => handleDevShortcut(shortcut.email, shortcut.password)}
+                                    className={`w-[48%] p-2 rounded-md mb-2 border items-center shadow-sm ${shortcut.className}`}
+                                >
+                                    <Text className={`font-black text-[11px] capitalize tracking-widest ${shortcut.textClass}`}>
+                                        {shortcut.label}
+                                    </Text>
+                                    <Text className={`text-[11px] font-bold mt-1 ${shortcut.subTextClass}`}>
+                                        {shortcut.email}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
                         </View>
                     </View>
 
