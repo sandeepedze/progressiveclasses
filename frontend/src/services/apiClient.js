@@ -22,7 +22,8 @@ export const setupAxiosInterceptors = (store) => {
                 config.headers.Authorization = `Bearer ${token}`;
             }
 
-            logger.debug(`API Request: ${config.method?.toUpperCase()} ${config.url}`, config.data);
+            const fullUrl = `${config.baseURL || ''}${config.url}`;
+            logger.debug(`API Request: ${config.method?.toUpperCase()} ${fullUrl}`, config.data);
             return config;
         },
         (error) => {
@@ -112,6 +113,13 @@ export const setupAxiosInterceptors = (store) => {
                     payload: { id: Date.now(), type: 'error', message: serverMessage }
                 });
             }
+
+            // NEW: Log the full error to console for debugging
+            logger.error('API Error Response:', {
+                status: error.response?.status,
+                data: error.response?.data,
+                message: error.message
+            });
 
             return Promise.reject(new Error(serverMessage));
         }

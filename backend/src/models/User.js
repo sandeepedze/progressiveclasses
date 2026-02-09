@@ -30,7 +30,12 @@ const User = sequelize.define('User', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    profile_pic: {
+    edu_type_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1 // Default to School if not provided
+    },
+    profilePic: {
         type: DataTypes.STRING,
     },
     status: {
@@ -42,8 +47,7 @@ const User = sequelize.define('User', {
     },
 }, {
     tableName: 'users',
-    underscored: true,
-    timestamps: true,
+    timestamps: true, // underscored: true REMOVED because schema is mixed
     createdAt: 'created_at',
     updatedAt: 'updated_at',
 });

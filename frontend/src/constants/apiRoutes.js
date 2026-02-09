@@ -7,6 +7,9 @@ export const API_ROUTES = {
         ME: 'auth/me',
         EDU_TYPES: 'auth/edu-types',
         SETUP_ORG: 'auth/setup-org',
+        FORGOT_PASSWORD: 'auth/forgot-password',
+        VERIFY_OTP: 'auth/verify-otp',
+        RESET_PASSWORD: 'auth/reset-password',
     },
     SUPER_ADMIN: {
         CREATE_SCHOOL: 'superadmin/schools/create',
@@ -31,6 +34,6 @@ export const API_ROUTES = {
 };
 
 export const API_CONFIG = {
-    BASE_URL: 'http://192.168.29.138:5000/api/', // Added trailing slash
+    BASE_URL: process.env.EXPO_PUBLIC_API_URL || 'http://localhost:5000/api/',
     TIMEOUT: 15000,
 };

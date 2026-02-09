@@ -15,6 +15,7 @@ import { NavigationContainer } from '@react-navigation/native';
 setupAxiosInterceptors(store);
 
 export default function App() {
+    console.log('App starting. API URL:', process.env.EXPO_PUBLIC_API_URL);
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <Provider store={store}>

@@ -20,6 +20,15 @@ export const authService = {
     },
     setupOrg: async (data) => {
         return await apiClient.post(API_ROUTES.AUTH.SETUP_ORG, data);
+    },
+    forgotPassword: async (contact) => {
+        return await apiClient.post(API_ROUTES.AUTH.FORGOT_PASSWORD, { contact });
+    },
+    verifyOtp: async (contact, otp) => {
+        return await apiClient.post(API_ROUTES.AUTH.VERIFY_OTP, { contact, otp });
+    },
+    resetPassword: async (contact, otp, newPassword) => {
+        return await apiClient.post(API_ROUTES.AUTH.RESET_PASSWORD, { contact, otp, newPassword });
     }
 };
 

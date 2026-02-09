@@ -173,6 +173,19 @@ const setupDatabase = async () => {
         await connection.query(createOrgDetailsTable);
         console.log("Table 'organization_details' checked/created.");
 
+        // 9. Create 'password_resets' table
+        const createPasswordResetTable = `
+            CREATE TABLE IF NOT EXISTS password_resets (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                contact VARCHAR(255) NOT NULL,
+                otp VARCHAR(10) NOT NULL,
+                expires_at DATETIME NOT NULL,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            );
+        `;
+        await connection.query(createPasswordResetTable);
+        console.log("Table 'password_resets' checked/created.");
+
         console.log('Database setup completed successfully.');
         process.exit(0);
 

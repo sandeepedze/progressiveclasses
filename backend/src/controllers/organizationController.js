@@ -51,6 +51,12 @@ const setupOrganization = async (req, res) => {
             subscription_id: 5 // Default
         });
 
+        // Sync User's edu_type_id
+        await User.update(
+            { edu_type_id: edu_type_id },
+            { where: { id: userId } }
+        );
+
         res.status(201).json({
             message: 'Setup Complete',
             organization: org
