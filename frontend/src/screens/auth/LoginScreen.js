@@ -42,7 +42,8 @@ const LoginScreen = ({ navigation }) => {
             await dispatch(loginUser(creds)).unwrap();
             showToast('Login successful! Welcome back.', 'success');
         } catch (err) {
-            // Error handling via global toaster
+            console.error('Login Screen Error:', err);
+            showToast(err.message || err || 'Login failed', 'error');
         }
     };
 

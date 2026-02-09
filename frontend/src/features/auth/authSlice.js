@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import * as SecureStore from 'expo-secure-store';
+import { storage } from '../../utils/storage';
 import { authService } from '../../services';
 
 export const loginUser = createAsyncThunk(
@@ -7,10 +7,12 @@ export const loginUser = createAsyncThunk(
     async (credentials, { rejectWithValue }) => {
         try {
             const data = await authService.login(credentials);
-            await SecureStore.setItemAsync('userToken', data.token);
-            await SecureStore.setItemAsync('userData', JSON.stringify(data.user));
+            console.log('Login successful, storing data...');
+            await storage.setItem('userToken', data.token);
+            await storage.setItem('userData', JSON.stringify(data.user));
             return data;
         } catch (error) {
+            console.error('Login Thunk Error:', error);
             return rejectWithValue(error.message || 'Login failed');
         }
     }
@@ -20,7 +22,7 @@ export const restoreToken = createAsyncThunk(
     'auth/restoreToken',
     async (_, { rejectWithValue }) => {
         try {
-            const token = await SecureStore.getItemAsync('userToken');
+            const token = await storage.getItem('userToken');
             if (token) {
                 // Token exists, fetch fresh user data from the backend
                 const data = await authService.getMe();
@@ -29,7 +31,7 @@ export const restoreToken = createAsyncThunk(
                 const user = data.user || data;
 
                 if (user && (user.id || user.email)) {
-                    await SecureStore.setItemAsync('userData', JSON.stringify(user));
+                    await storage.setItem('userData', JSON.stringify(user));
                     return { token, user };
                 }
             }
@@ -37,8 +39,8 @@ export const restoreToken = createAsyncThunk(
             return rejectWithValue('No token found');
         } catch (error) {
             // If getMe fails (e.g., invalid token), logout
-            await SecureStore.deleteItemAsync('userToken');
-            await SecureStore.deleteItemAsync('userData');
+            await storage.deleteItem('userToken');
+            await storage.deleteItem('userData');
             return rejectWithValue(error.message || 'Session expired');
         }
     }
@@ -55,8 +57,8 @@ export const logoutUser = createAsyncThunk(
             // We'll re-throw the error so the UI can show a notification.
             return rejectWithValue(error.message);
         } finally {
-            await SecureStore.deleteItemAsync('userToken');
-            await SecureStore.deleteItemAsync('userData');
+            await storage.deleteItem('userToken');
+            await storage.deleteItem('userData');
         }
     }
 );

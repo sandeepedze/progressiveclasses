@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
+import { storage } from '../utils/storage';
 import { API_CONFIG, API_ROUTES } from '../constants/apiRoutes';
 import { logger } from '../utils/logger';
 
@@ -17,7 +17,7 @@ export const setupAxiosInterceptors = (store) => {
     // 2. Request Interceptor
     apiClient.interceptors.request.use(
         async (config) => {
-            const token = await SecureStore.getItemAsync('userToken');
+            const token = await storage.getItem('userToken');
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`;
             }
@@ -86,8 +86,8 @@ export const setupAxiosInterceptors = (store) => {
                     config._retry = true;
                     try {
                         logger.warn('Token expired or invalid, logging out...');
-                        await SecureStore.deleteItemAsync('userToken');
-                        await SecureStore.deleteItemAsync('userData');
+                        await storage.deleteItem('userToken');
+                        await storage.deleteItem('userData');
 
                         if (store) {
                             store.dispatch({ type: 'auth/logout/fulfilled' });
