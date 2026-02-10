@@ -6,8 +6,7 @@ import DashboardScreen from '../screens/DashboardScreen';
 import ProfileScreen from '../screens/common/ProfileScreen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-// Placeholder Screens
-// Placeholder Screens
+
 const CirclesScreen = () => (
     <View className="flex-1 bg-white items-center justify-center">
         <Text className="text-gray-500 font-bold text-lg">Circles</Text>

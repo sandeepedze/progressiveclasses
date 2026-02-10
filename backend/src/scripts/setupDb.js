@@ -65,11 +65,22 @@ const setupDatabase = async () => {
             CREATE TABLE IF NOT EXISTS edu_type (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 type_name VARCHAR(50) NOT NULL,
+                is_active INT NOT NULL DEFAULT 0 COMMENT '0=Inactive, 1=Active',
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
             );
         `;
         await connection.query(createEduTypeTable);
         console.log("Table 'edu_type' checked/created.");
+
+        // Ensure is_active column exists (for existing tables)
+        try {
+            await connection.query("ALTER TABLE `edu_type` ADD `is_active` INT NOT NULL DEFAULT '0' COMMENT '0=Inactive, 1=Active' AFTER `type_name`");
+            console.log("Column 'is_active' added to 'edu_type'.");
+        } catch (error) {
+            if (error.code !== 'ER_DUP_FIELDNAME') {
+                console.error("Error adding is_active column:", error.message);
+            }
+        }
 
         // Insert Edu Types
         const eduTypes = ['Schools', 'Institutes', 'Coaching', 'Tuition'];
