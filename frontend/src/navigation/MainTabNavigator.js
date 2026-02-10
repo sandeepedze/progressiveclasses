@@ -7,9 +7,16 @@ import ProfileScreen from '../screens/common/ProfileScreen';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Placeholder Screens
-const PlaceholderScreen = ({ title }) => (
+// Placeholder Screens
+const CirclesScreen = () => (
     <View className="flex-1 bg-white items-center justify-center">
-        <Text className="text-gray-500 font-bold text-lg">{title}</Text>
+        <Text className="text-gray-500 font-bold text-lg">Circles</Text>
+    </View>
+);
+
+const SocialScreen = () => (
+    <View className="flex-1 bg-white items-center justify-center">
+        <Text className="text-gray-500 font-bold text-lg">Social</Text>
     </View>
 );
 
@@ -54,7 +61,7 @@ const MainTabNavigator = () => {
             />
             <Tab.Screen
                 name="Circles"
-                component={() => <PlaceholderScreen title="Circles" />}
+                component={CirclesScreen}
                 options={{
                     tabBarLabel: 'Circles',
                     tabBarIcon: ({ color, size }) => (
@@ -64,7 +71,7 @@ const MainTabNavigator = () => {
             />
             <Tab.Screen
                 name="Social"
-                component={() => <PlaceholderScreen title="Social" />}
+                component={SocialScreen}
                 options={{
                     tabBarLabel: 'Social',
                     tabBarIcon: ({ color, size }) => (
