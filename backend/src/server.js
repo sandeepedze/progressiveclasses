@@ -37,6 +37,7 @@ app.set('socketio', io);
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/admin', require('./routes/adminRoutes'));
 
 app.get('/', (req, res) => {
     res.send('Edu App - API is running...');

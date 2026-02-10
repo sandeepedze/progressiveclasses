@@ -19,6 +19,19 @@ export const API_ROUTES = {
         MAP_MODULES: 'superadmin/plans/map-modules',
         XLSX_UPLOAD: 'superadmin/schools/upload-xlsx',
     },
+    ADMIN: {
+        ORGANIZATION: {
+            LIST: 'admin/organizations',
+            CREATE: 'admin/organization/create',
+        },
+        SUBSCRIPTION: {
+            LIST: 'admin/subscription/list',
+            CREATE: 'admin/subscription/create',
+            UPDATE: (id) => `admin/subscription/update/${id}`,
+            DELETE: (id) => `admin/subscription/delete/${id}`,
+            STATUS: (id) => `admin/subscription/status/${id}`,
+        }
+    },
     SCHOOL: {
         LIST: 'schools',
         DETAILS: (id) => `schools/${id}`,

@@ -3,6 +3,7 @@ const EduType = require('./EduType');
 const OrganizationDetail = require('./OrganizationDetail');
 const PasswordReset = require('./PasswordReset');
 const User = require('./User');
+const SubscriptionPlan = require('./SubscriptionPlan');
 
 // Associations
 
@@ -23,4 +24,5 @@ module.exports = {
     OrganizationDetail,
     PasswordReset,
     User,
+    SubscriptionPlan,
 };
