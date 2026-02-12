@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Nova Campus",
+    "slug": "nova-campus-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#050B14"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.novacampus.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Camera access is required to scan QR codes and capture ID photos.",
+        "NSPhotoLibraryUsageDescription": "Photo library access is required to upload assignments and ID photos.",
+        "NSPhotoLibraryAddUsageDescription": "Photo library write access is required to save captured images."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#050B14"
+      },
+      "package": "com.novacampus.app",
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE"
+      ],
+      "usesCleartextTraffic": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-camera",
+      "expo-image-picker",
+      "expo-document-picker",
+      "expo-file-system"
+    ]
+  }
+}
